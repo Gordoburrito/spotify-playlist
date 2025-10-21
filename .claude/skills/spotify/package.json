@@ -1,0 +1,22 @@
+{
+  "name": "claude-spotify-skill",
+  "version": "1.0.0",
+  "description": "Claude skill for controlling Spotify and managing playlists",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "keywords": [
+    "spotify",
+    "claude",
+    "skill",
+    "playlist",
+    "music"
+  ],
+  "author": "Claude Code User",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

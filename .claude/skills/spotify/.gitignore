@@ -1,0 +1,8 @@
+# Environment variables (contains sensitive tokens)
+.env
+
+# Node modules (if any dependencies are added later)
+node_modules/
+
+# OS files
+.DS_Store

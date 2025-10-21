@@ -1,0 +1,223 @@
+{
+  "name": "spotify",
+  "description": "Control Spotify and manage playlists using the Spotify Web API",
+  "version": "1.0.0",
+  "author": "Claude Code User",
+  "entrypoint": "index.js",
+  "runtime": "node",
+  "tools": [
+    {
+      "name": "get_top_tracks",
+      "description": "Get user's top tracks from Spotify. Returns the most listened to tracks.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "time_range": {
+            "type": "string",
+            "description": "Time range for top tracks: 'short_term' (last 4 weeks), 'medium_term' (last 6 months), or 'long_term' (several years)",
+            "enum": ["short_term", "medium_term", "long_term"],
+            "default": "medium_term"
+          },
+          "limit": {
+            "type": "number",
+            "description": "Number of tracks to return (1-50)",
+            "minimum": 1,
+            "maximum": 50,
+            "default": 20
+          }
+        }
+      }
+    },
+    {
+      "name": "get_top_artists",
+      "description": "Get user's top artists from Spotify. Returns the most listened to artists.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "time_range": {
+            "type": "string",
+            "description": "Time range for top artists: 'short_term' (last 4 weeks), 'medium_term' (last 6 months), or 'long_term' (several years)",
+            "enum": ["short_term", "medium_term", "long_term"],
+            "default": "medium_term"
+          },
+          "limit": {
+            "type": "number",
+            "description": "Number of artists to return (1-50)",
+            "minimum": 1,
+            "maximum": 50,
+            "default": 20
+          }
+        }
+      }
+    },
+    {
+      "name": "create_playlist",
+      "description": "Create a new playlist for the user",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the playlist"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the playlist",
+            "default": ""
+          },
+          "public": {
+            "type": "boolean",
+            "description": "Whether the playlist should be public",
+            "default": false
+          }
+        },
+        "required": ["name"]
+      }
+    },
+    {
+      "name": "add_tracks_to_playlist",
+      "description": "Add tracks to a playlist",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "playlist_id": {
+            "type": "string",
+            "description": "ID of the playlist"
+          },
+          "track_uris": {
+            "type": "array",
+            "description": "Array of Spotify track URIs (e.g., ['spotify:track:xxx', 'spotify:track:yyy'])",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": ["playlist_id", "track_uris"]
+      }
+    },
+    {
+      "name": "search_tracks",
+      "description": "Search for tracks on Spotify",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Search query (track name, artist, etc.)"
+          },
+          "limit": {
+            "type": "number",
+            "description": "Number of results to return (1-50)",
+            "minimum": 1,
+            "maximum": 50,
+            "default": 10
+          }
+        },
+        "required": ["query"]
+      }
+    },
+    {
+      "name": "search_artists",
+      "description": "Search for artists on Spotify",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Search query (artist name)"
+          },
+          "limit": {
+            "type": "number",
+            "description": "Number of results to return (1-50)",
+            "minimum": 1,
+            "maximum": 50,
+            "default": 10
+          }
+        },
+        "required": ["query"]
+      }
+    },
+    {
+      "name": "get_recommendations",
+      "description": "Get track recommendations based on seed tracks, artists, or genres",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "seed_tracks": {
+            "type": "array",
+            "description": "Array of Spotify track IDs to use as seeds (max 5 total seeds)",
+            "items": {
+              "type": "string"
+            }
+          },
+          "seed_artists": {
+            "type": "array",
+            "description": "Array of Spotify artist IDs to use as seeds (max 5 total seeds)",
+            "items": {
+              "type": "string"
+            }
+          },
+          "seed_genres": {
+            "type": "array",
+            "description": "Array of genre names to use as seeds (max 5 total seeds)",
+            "items": {
+              "type": "string"
+            }
+          },
+          "limit": {
+            "type": "number",
+            "description": "Number of recommendations to return (1-100)",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 20
+          }
+        }
+      }
+    },
+    {
+      "name": "get_current_user",
+      "description": "Get current user's Spotify profile information",
+      "parameters": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "get_user_playlists",
+      "description": "Get the current user's playlists",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "number",
+            "description": "Number of playlists to return (1-50)",
+            "minimum": 1,
+            "maximum": 50,
+            "default": 20
+          }
+        }
+      }
+    },
+    {
+      "name": "get_playlist_tracks",
+      "description": "Get tracks from a specific playlist",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "playlist_id": {
+            "type": "string",
+            "description": "ID of the playlist"
+          },
+          "limit": {
+            "type": "number",
+            "description": "Number of tracks to return (1-100)",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 50
+          }
+        },
+        "required": ["playlist_id"]
+      }
+    }
+  ]
+}
